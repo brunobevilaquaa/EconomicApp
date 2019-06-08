@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.bruno.economic.dominio.entidades.Meta;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MetaRepositorio {
 
@@ -23,6 +22,7 @@ public class MetaRepositorio {
         contentValues.put("nome", meta.getNome());
         contentValues.put("valorMeta", meta.getValorMeta());
         contentValues.put("valorEconomia", meta.getValorEconomia());
+        contentValues.put("valorAlcancado", meta.getValorAlcancado());
         contentValues.put("diaFim", meta.getDiaFim());
         contentValues.put("mesFim", meta.getMesFim());
         contentValues.put("anoFim", meta.getAnoFim());
@@ -45,6 +45,7 @@ public class MetaRepositorio {
         contentValues.put("nome", meta.getNome());
         contentValues.put("valorMeta", meta.getValorMeta());
         contentValues.put("valorEconomia", meta.getValorEconomia());
+        contentValues.put("valorAlcancado", meta.getValorAlcancado());
         contentValues.put("diaFim", meta.getDiaFim());
         contentValues.put("mesFim", meta.getMesFim());
         contentValues.put("anoFim", meta.getAnoFim());
@@ -61,7 +62,7 @@ public class MetaRepositorio {
 
         StringBuilder sql = new StringBuilder();
 
-        sql.append(" SELECT nome, valorMeta, valorEconomia, diaFim, mesFim, anoFim ");
+        sql.append(" SELECT nome, valorMeta, valorEconomia, valorAlcancado, diaFim, mesFim, anoFim ");
         sql.append("   From META");
 
         Cursor resultado = conexao.rawQuery(sql.toString(), null);
@@ -73,8 +74,9 @@ public class MetaRepositorio {
                 Meta met = new Meta();
 
                 met.setNome(resultado.getString(resultado.getColumnIndexOrThrow("nome")));
-                met.setValorMeta(resultado.getInt(resultado.getColumnIndexOrThrow("valorMeta")));
-                met.setValorEconomia(resultado.getInt(resultado.getColumnIndexOrThrow("valorEconomia")));
+                met.setValorMeta(resultado.getDouble(resultado.getColumnIndexOrThrow("valorMeta")));
+                met.setValorEconomia(resultado.getDouble(resultado.getColumnIndexOrThrow("valorEconomia")));
+                met.setValorAlcancado(resultado.getDouble(resultado.getColumnIndexOrThrow("valorAlcancado")));
                 met.setDiaFim(resultado.getInt(resultado.getColumnIndexOrThrow("diaFim")));
                 met.setMesFim(resultado.getInt(resultado.getColumnIndexOrThrow("mesFim")));
                 met.setAnoFim(resultado.getInt(resultado.getColumnIndexOrThrow("anoFim")));
@@ -92,7 +94,7 @@ public class MetaRepositorio {
 
         StringBuilder sql = new StringBuilder();
 
-        sql.append(" SELECT nome, valorMeta, valorEconomia, diaFim, mesFim, anoFim ");
+        sql.append(" SELECT nome, valorMeta, valorEconomia, valorAlcancado, diaFim, mesFim, anoFim ");
         sql.append("   From META");
         sql.append(" WHERE nome = ? ");
 
@@ -106,8 +108,9 @@ public class MetaRepositorio {
 
 
             meta.setNome(resultado.getString(resultado.getColumnIndexOrThrow("nome")));
-            meta.setValorMeta(resultado.getInt(resultado.getColumnIndexOrThrow("valorMeta")));
-            meta.setValorEconomia(resultado.getInt(resultado.getColumnIndexOrThrow("valorEconomia")));
+            meta.setValorMeta(resultado.getDouble(resultado.getColumnIndexOrThrow("valorMeta")));
+            meta.setValorEconomia(resultado.getDouble(resultado.getColumnIndexOrThrow("valorEconomia")));
+            meta.setValorAlcancado(resultado.getDouble(resultado.getColumnIndexOrThrow("valorAlcancado")));
             meta.setDiaFim(resultado.getInt(resultado.getColumnIndexOrThrow("diaFim")));
             meta.setMesFim(resultado.getInt(resultado.getColumnIndexOrThrow("mesFim")));
             meta.setAnoFim(resultado.getInt(resultado.getColumnIndexOrThrow("anoFim")));

@@ -14,6 +14,8 @@ import com.bruno.economic.DBHElper.MetasDb;
 import com.bruno.economic.dominio.entidades.Meta;
 import com.bruno.economic.dominio.repositorio.MetaRepositorio;
 
+import java.text.DecimalFormat;
+
 public class ActvVisualizaMeta extends AppCompatActivity {
 
     private SQLiteDatabase conexao;
@@ -24,10 +26,12 @@ public class ActvVisualizaMeta extends AppCompatActivity {
     private TextView TXT_Nome;
     private TextView TXT_Valor;
     private TextView TXT_Economia;
+    private TextView TXT_ValorAlcancado;
     private TextView TXT_Termino;
 
+
     private Button BTN_Excluir;
-    private Button BTN_
+
 
     private Meta dado;
 
@@ -38,10 +42,12 @@ public class ActvVisualizaMeta extends AppCompatActivity {
 
         criarConexao();
 
-        TXT_Nome = (TextView)findViewById(R.id.TXT_Nome);
+        TXT_Nome = (TextView) findViewById(R.id.TXT_Nome);
         TXT_Valor = (TextView) findViewById(R.id.TXT_Valor);
         TXT_Economia = (TextView) findViewById(R.id.TXT_Economia);
+        TXT_ValorAlcancado = (TextView) findViewById(R.id.TXT_ValorAlcancado);
         TXT_Termino = (TextView) findViewById(R.id.TXT_Termino);
+
 
         dado = recebeDados();
 
@@ -86,9 +92,13 @@ public class ActvVisualizaMeta extends AppCompatActivity {
 
 
         if((bundle != null) && (meta != null)){
+            DecimalFormat nf = new DecimalFormat("###,##0.00");
+
             TXT_Nome.setText(meta.getNome());
-            TXT_Valor.setText(Integer.toString(meta.getValorMeta()));
-            TXT_Economia.setText(Integer.toString(meta.getValorEconomia()));
+            TXT_Valor.setText(nf.format(meta.getValorMeta()).replaceAll(",", "."));
+            TXT_Economia.setText(nf.format(meta.getValorEconomia()).replaceAll(",", "."));
+            TXT_ValorAlcancado.setText(nf.format(meta.getValorAlcancado()).replaceAll(",", "."));
+
             TXT_Termino.setText(Integer.toString(meta.getDiaFim()) + "/" + Integer.toString(meta.getMesFim()) + "/" + Integer.toString(meta.getAnoFim()));
         }
 

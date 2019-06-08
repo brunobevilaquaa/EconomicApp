@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Meta implements Serializable{
     private String nome;
-    private int valorMeta;
-    private int valorEconomia;
+    private double valorMeta;
+    private double valorEconomia;
+    private double valorAlcancado;
     private int diaFim;
     private int mesFim;
     private int anoFim;
@@ -16,12 +17,16 @@ public class Meta implements Serializable{
         this.nome = n;
     }
 
-    public void setValorMeta(int vm){
+    public void setValorMeta(double vm){
         this.valorMeta = vm;
     }
 
-    public void setValorEconomia(int ve){
+    public void setValorEconomia(double ve){
         this.valorEconomia = ve;
+    }
+
+    public void setValorAlcancado(double va){
+        this.valorAlcancado = va;
     }
 
     public void setDiaFim(int df){
@@ -41,12 +46,16 @@ public class Meta implements Serializable{
         return this.nome;
     }
 
-    public int getValorMeta(){
+    public double getValorMeta(){
         return this.valorMeta;
     }
 
-    public int getValorEconomia(){
+    public double getValorEconomia(){
         return this.valorEconomia;
+    }
+
+    public double getValorAlcancado(){
+        return this.valorAlcancado;
     }
 
     public int getDiaFim(){

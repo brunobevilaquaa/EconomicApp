@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bruno.economic.dominio.entidades.Meta;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MetasAddapter extends RecyclerView.Adapter<MetasAddapter.ViewHolderMetas> {
@@ -41,8 +42,9 @@ public class MetasAddapter extends RecyclerView.Adapter<MetasAddapter.ViewHolder
         if((dados != null) && (dados.size() > 0)) {
             Meta meta = dados.get(i);
 
+            DecimalFormat nf = new DecimalFormat("###,##0.00");
             holder.TV_Nome.setText(meta.getNome());
-            holder.TV_Valor.setText("Valor R$ " + Integer.toString(meta.getValorMeta()) + ",00");
+            holder.TV_Valor.setText("Valor R$ " + nf.format(meta.getValorMeta()).replaceAll(",", "."));
         }
     }
 

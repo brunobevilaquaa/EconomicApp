@@ -99,8 +99,8 @@ public class ActvNovaMeta extends AppCompatActivity {
         String economiaEco = ET_Economia.getText().toString();
         String fim = ET_Fim.getText().toString();
 
-        int total = 0;
-        int economia = 0;
+        double total = 0;
+        double economia = 0;
 
         if(resultado = campoVazio(nome)){
             ET_Nome.requestFocus();
@@ -120,8 +120,8 @@ public class ActvNovaMeta extends AppCompatActivity {
 
 
         try{
-            total =  Integer.parseInt(totalMeta);
-            economia = Integer.parseInt(economiaEco);
+            total =  Double.parseDouble(totalMeta);
+            economia = Double.parseDouble(economiaEco);
 
         } catch(Exception e){
             resultado = true;

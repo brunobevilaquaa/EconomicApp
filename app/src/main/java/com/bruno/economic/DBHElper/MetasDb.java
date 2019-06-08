@@ -8,7 +8,7 @@ public class MetasDb extends SQLiteOpenHelper {
 
 
     public MetasDb(Context context){
-        super(context, "bdmetas", null, 1);
+        super(context, "metasdb", null, 1);
     }
 
     @Override
