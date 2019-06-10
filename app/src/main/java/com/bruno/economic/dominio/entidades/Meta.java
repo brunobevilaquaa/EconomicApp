@@ -11,6 +11,9 @@ public class Meta implements Serializable{
     private int mesFim;
     private int anoFim;
 
+    public Meta(){
+        this.valorAlcancado = 0;
+    }
 
     //SETERS;
     public void setNome(String n){
@@ -26,7 +29,7 @@ public class Meta implements Serializable{
     }
 
     public void setValorAlcancado(double va){
-        this.valorAlcancado = va;
+        this.valorAlcancado += va;
     }
 
     public void setDiaFim(int df){

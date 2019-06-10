@@ -1,13 +1,20 @@
 package com.bruno.economic;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bruno.economic.DBHElper.MetasDb;
@@ -28,12 +35,15 @@ public class ActvVisualizaMeta extends AppCompatActivity {
     private TextView TXT_Economia;
     private TextView TXT_ValorAlcancado;
     private TextView TXT_Termino;
+    private TextView TXT_Previsao;
 
+    private ProgressBar PB_Progresso;
 
     private Button BTN_Excluir;
 
-
     private Meta dado;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +57,16 @@ public class ActvVisualizaMeta extends AppCompatActivity {
         TXT_Economia = (TextView) findViewById(R.id.TXT_Economia);
         TXT_ValorAlcancado = (TextView) findViewById(R.id.TXT_ValorAlcancado);
         TXT_Termino = (TextView) findViewById(R.id.TXT_Termino);
+        TXT_Previsao = (TextView) findViewById(R.id.TXT_Previsao);
+
+        PB_Progresso = (ProgressBar) findViewById(R.id.PB_Progresso);
 
 
         dado = recebeDados();
 
         BTN_Excluir = (Button) findViewById(R.id.BTN_Excluir);
 
-        if(dado != null) {
-            BTN_Excluir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    metaRepositorio.excluir(dado.getNome());
-                    Intent intentA = new Intent(getApplicationContext(), ActvMain.class);
-                    startActivity(intentA);
-                }
-            });
-        }
+
     }
 
     private void criarConexao(){
@@ -74,7 +78,6 @@ public class ActvVisualizaMeta extends AppCompatActivity {
             metaRepositorio = new MetaRepositorio(conexao);
 
         } catch(SQLException ex) {
-
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("ERRO");
             dlg.setMessage(ex.getMessage());
@@ -90,18 +93,118 @@ public class ActvVisualizaMeta extends AppCompatActivity {
         Meta meta = new Meta();
         meta = (Meta) bundle.getSerializable("META");
 
+        final Intent intentMenuPrincipal = new Intent(getApplicationContext(), ActvMain.class);
 
-        if((bundle != null) && (meta != null)){
+        if(meta != null){
+            int previsao = 0;
+            int progresso = 0;
+            double iterador = meta.getValorAlcancado();
+
             DecimalFormat nf = new DecimalFormat("###,##0.00");
 
             TXT_Nome.setText(meta.getNome());
             TXT_Valor.setText(nf.format(meta.getValorMeta()).replaceAll(",", "."));
             TXT_Economia.setText(nf.format(meta.getValorEconomia()).replaceAll(",", "."));
             TXT_ValorAlcancado.setText(nf.format(meta.getValorAlcancado()).replaceAll(",", "."));
-
             TXT_Termino.setText(Integer.toString(meta.getDiaFim()) + "/" + Integer.toString(meta.getMesFim()) + "/" + Integer.toString(meta.getAnoFim()));
+
+            progresso = (int) (meta.getValorAlcancado() / meta.getValorMeta()) * 100;
+
+
+
+            PB_Progresso.setProgress(progresso);
+
+            while(iterador < meta.getValorMeta()){
+                iterador += meta.getValorEconomia();
+                previsao += 1;
+            }
+
+            TXT_Previsao.setText(Integer.toString(previsao) + " Meses");
+
+
+
+
+        } else {
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+
+            dlg.setTitle("ERRO");
+            dlg.setMessage("Ocorreu Algum Problema Inesperado!");
+            dlg.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface arg, int argInt){
+                    startActivity(intentMenuPrincipal);
+                }
+            });
+            dlg.show();
         }
 
         return meta;
+    }
+
+    public void excluiMeta(View view){
+        final Intent intentMenuPrincipal = new Intent(getApplicationContext(), ActvMain.class);
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+
+        if(dado != null) {
+            dlg.setTitle("Excluir");
+            dlg.setMessage("Você Tem Certeza que Quer Excluir Esta Meta?");
+
+            dlg.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface arg, int argInt){
+                    metaRepositorio.excluir(dado.getNome());
+                    startActivity(intentMenuPrincipal);
+                }
+            });
+
+            dlg.setNeutralButton("Cancelar", null);
+
+            dlg.show();
+
+        } else {
+            dlg.setTitle("ERRO");
+            dlg.setMessage("Ocorreu Algum Problema Inesperado!");
+            dlg.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface arg, int argInt){
+                    startActivity(intentMenuPrincipal);
+                }
+            });
+            dlg.show();
+        }
+    }
+
+    public void retornaMenuInicial(View view){
+        Intent intentMenuPrincipal = new Intent(getApplicationContext(), ActvMain.class);
+        startActivity(intentMenuPrincipal);
+    }
+
+    public void registraAtividade(View view){
+        AlertDialog.Builder dl = new AlertDialog.Builder(this);
+
+        dl.setTitle("Quanto Você Está Disposto a Adicionar?");
+
+        final EditText editText = new EditText(this);
+        editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(editText);
+
+        dl.setView(layout);
+
+        dl.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            // do something when the button is clicked
+            public void onClick(DialogInterface arg0, int arg1) {
+                Meta meta = new Meta();
+                meta = dado;
+                meta.setValorAlcancado(Double.parseDouble(editText.getText().toString()));
+                metaRepositorio.alterar(meta);
+
+                Intent intent = new Intent(getApplicationContext(), ActvVisualizaMeta.class);
+                intent.putExtra("META", meta);
+                startActivity(intent);
+            }
+        });
+
+        dl.setNeutralButton("Cancelar", null);
+        dl.show();
     }
 }

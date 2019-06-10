@@ -27,8 +27,11 @@ import java.time.format.DateTimeParseException;
 public class ActvNovaMeta extends AppCompatActivity {
     private ConstraintLayout actv_nova_meta;
 
-    private EditText ET_Nome, ET_Total, ET_Economia, ET_Fim;
-    private TextView TV_Previsao;
+    private EditText ET_Nome;
+    private EditText ET_Total;
+    private EditText ET_Economia;
+    private EditText ET_Fim;
+
     private Button btnSalvar;
 
     private MetaRepositorio metaRepositorio;
@@ -50,7 +53,6 @@ public class ActvNovaMeta extends AppCompatActivity {
         ET_Total = (EditText) findViewById(R.id.ET_Total);
         ET_Economia = (EditText) findViewById(R.id.ET_Economia);
         ET_Fim = (EditText) findViewById(R.id.ET_Fim);
-        TV_Previsao = (TextView) findViewById(R.id.TV_Previsao);
 
         //REALIZA AS AÇOES DO BOTAO;
         btnSalvar = (Button) findViewById(R.id.BTN_Salvar);

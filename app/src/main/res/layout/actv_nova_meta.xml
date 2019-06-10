@@ -26,8 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV_Previsao"
-        app:layout_constraintVertical_bias="0.213" />
+        app:layout_constraintTop_toBottomOf="@+id/ET_Fim" />
 
     <TextView
         android:id="@+id/TV_NomeMeta"
@@ -78,10 +77,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="E Quanto Ira Economizar Por Mes"
+        android:text="E Quanto Pretende Economizar Por Mes"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ET_Total" />
 
@@ -107,7 +106,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TXT_Economia" />
 
@@ -118,10 +117,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="Por Fim Quando Deseja Alcançar?"
+        android:text="Por Fim em que Data Pretende Finalizar"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.293"
+        app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ET_Economia" />
 
@@ -134,36 +133,8 @@
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TV_Fim" />
-
-    <TextView
-        android:id="@+id/TV_Informa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:text="Segundo Seus Dados Sua Meta Será Atingida em:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ET_Fim" />
-
-    <TextView
-        android:id="@+id/TV_Previsao"
-        android:layout_width="106dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV_Informa" />
 
 </android.support.constraint.ConstraintLayout>
