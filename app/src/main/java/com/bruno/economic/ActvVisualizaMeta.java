@@ -98,6 +98,7 @@ public class ActvVisualizaMeta extends AppCompatActivity {
         if(meta != null){
             int previsao = 0;
             int progresso = 0;
+            double porcentagem = 0;
             double iterador = meta.getValorAlcancado();
 
             DecimalFormat nf = new DecimalFormat("###,##0.00");
@@ -108,8 +109,8 @@ public class ActvVisualizaMeta extends AppCompatActivity {
             TXT_ValorAlcancado.setText(nf.format(meta.getValorAlcancado()).replaceAll(",", "."));
             TXT_Termino.setText(Integer.toString(meta.getDiaFim()) + "/" + Integer.toString(meta.getMesFim()) + "/" + Integer.toString(meta.getAnoFim()));
 
-            progresso = (int) (meta.getValorAlcancado() / meta.getValorMeta()) * 100;
-
+            porcentagem =  (meta.getValorAlcancado() / meta.getValorMeta()) * 100;
+            progresso = (int) porcentagem;
 
 
             PB_Progresso.setProgress(progresso);
