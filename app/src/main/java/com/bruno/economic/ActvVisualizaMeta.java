@@ -22,6 +22,8 @@ import com.bruno.economic.dominio.entidades.Meta;
 import com.bruno.economic.dominio.repositorio.MetaRepositorio;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ActvVisualizaMeta extends AppCompatActivity {
 
@@ -107,11 +109,27 @@ public class ActvVisualizaMeta extends AppCompatActivity {
             TXT_Valor.setText(nf.format(meta.getValorMeta()).replaceAll(",", "."));
             TXT_Economia.setText(nf.format(meta.getValorEconomia()).replaceAll(",", "."));
             TXT_ValorAlcancado.setText(nf.format(meta.getValorAlcancado()).replaceAll(",", "."));
-            TXT_Termino.setText(Integer.toString(meta.getDiaFim()) + "/" + Integer.toString(meta.getMesFim()) + "/" + Integer.toString(meta.getAnoFim()));
 
+            //Converte dia mes e ano para o formato data
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+            String dataRecebida = Integer.toString(meta.getDiaFim()) + "/" + Integer.toString(meta.getMesFim()) + "/" + Integer.toString(meta.getAnoFim());
+
+            Date data = new Date();
+
+            try{
+                data = formato.parse(dataRecebida);
+            } catch(Exception e){
+
+            }
+
+            String dataFormatada = formato.format(data).toString();
+
+            TXT_Termino.setText(dataFormatada);
+
+            //Porcentagem da barra de progresso
             porcentagem =  (meta.getValorAlcancado() / meta.getValorMeta()) * 100;
             progresso = (int) porcentagem;
-
 
             PB_Progresso.setProgress(progresso);
 

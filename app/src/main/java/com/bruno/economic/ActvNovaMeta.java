@@ -1,5 +1,7 @@
 package com.bruno.economic;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,9 +23,12 @@ import com.bruno.economic.dominio.repositorio.MetaRepositorio;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ActvNovaMeta extends AppCompatActivity {
     private ConstraintLayout actv_nova_meta;
@@ -41,6 +47,12 @@ public class ActvNovaMeta extends AppCompatActivity {
 
     private Meta meta;
 
+    private int mes, dia, ano;
+    static final int DATE_ID = 0;
+
+    Calendar calendario = Calendar.getInstance();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +61,23 @@ public class ActvNovaMeta extends AppCompatActivity {
         actv_nova_meta = (ConstraintLayout) findViewById(R.id.actv_nova_meta);
         criarConexao();
 
+        mes = calendario.get(Calendar.MONTH);
+        dia = calendario.get(Calendar.DAY_OF_MONTH);
+        ano = calendario.get(Calendar.YEAR);
+
         ET_Nome = (EditText) findViewById(R.id.ET_Nome);
         ET_Total = (EditText) findViewById(R.id.ET_Total);
         ET_Economia = (EditText) findViewById(R.id.ET_Economia);
         ET_Fim = (EditText) findViewById(R.id.ET_Fim);
+
+        ET_Fim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                showDialog(DATE_ID);
+            }
+        });
+
 
         //REALIZA AS AÇOES DO BOTAO;
         btnSalvar = (Button) findViewById(R.id.BTN_Salvar);
@@ -71,6 +96,46 @@ public class ActvNovaMeta extends AppCompatActivity {
             }
         });
     }
+
+    private void colocaDataEtFim() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        String dataRecebida = Integer.toString(dia) + "/" + Integer.toString(mes + 1) + "/" + Integer.toString(ano);
+
+        Date data = new Date();
+
+        try{
+            data = formato.parse(dataRecebida);
+        } catch(Exception e){
+
+        }
+
+        String dataFormatada = formato.format(data).toString();
+
+        ET_Fim.setText(dataFormatada);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DATE_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+        }
+        return null;
+    }
+
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int getAno, int getMes, int getDia) {
+                    dia = getDia;
+                    mes = getMes;
+                    ano = getAno;
+                    colocaDataEtFim();
+
+                }
+
+            };
 
     private void confirma() throws Exception{
         meta = new Meta();

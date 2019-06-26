@@ -15,16 +15,14 @@
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/buttonshape"
         android:text="SALVAR"
         android:textColor="#FDFFF7"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ET_Fim" />
 
@@ -124,16 +122,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ET_Economia" />
 
-    <EditText
-        android:id="@+id/ET_Fim"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="715dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/ET_Fim"
+        android:layout_width="219dp"
+        android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TV_Fim" />
 

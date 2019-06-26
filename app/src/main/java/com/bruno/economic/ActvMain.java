@@ -1,5 +1,6 @@
 package com.bruno.economic;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,9 +39,25 @@ public class ActvMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+
         setContentView(R.layout.actv_main);
 
         criarConexao();
+
+        ArrayList<Meta> dados = metaRepositorio.buscarTodos();
+
+        for(int i = 0; i < dados.size(); i++) {
+            if (dados.get(i).getValorAlcancado() >= dados.get(i).getValorMeta()){
+                dlg.setTitle("VITÓRIA");
+                dlg.setMessage("Esse é um Motivo Para Comemorar Você Atingiu Sua Meta " + dados.get(i).getNome() + " Parabéns!");
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
+
+                metaRepositorio.excluir(dados.get(i).getNome());
+            }
+        }
 
         lstDados = (RecyclerView) findViewById(R.id.RV_Dados);
 
@@ -61,14 +78,11 @@ public class ActvMain extends AppCompatActivity {
 
         lstDados.setLayoutManager(linearLayoutManager);
 
-        ArrayList<Meta> dados = metaRepositorio.buscarTodos();
-
         metasAddapter = new MetasAddapter(metaRepositorio.buscarTodos());
 
         lstDados.setAdapter(metasAddapter);
 
     }
-
 
     private void criarConexao(){
         try{
