@@ -177,7 +177,8 @@ public class ActvNovaMeta extends AppCompatActivity {
             ET_Total.requestFocus();
         }
 
-        else if(resultado = campoVazio(economiaEco)){
+        else if(campoVazio(economiaEco) || Double.parseDouble(economiaEco) <= 0){
+            resultado = true;
             ET_Economia.requestFocus();
         }
 

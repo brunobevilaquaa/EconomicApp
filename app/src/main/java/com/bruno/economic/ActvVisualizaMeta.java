@@ -98,10 +98,9 @@ public class ActvVisualizaMeta extends AppCompatActivity {
         final Intent intentMenuPrincipal = new Intent(getApplicationContext(), ActvMain.class);
 
         if(meta != null){
-            int previsao = 0;
             int progresso = 0;
+            int previsao = 0;
             double porcentagem = 0;
-            double iterador = meta.getValorAlcancado();
 
             DecimalFormat nf = new DecimalFormat("###,##0.00");
 
@@ -133,15 +132,10 @@ public class ActvVisualizaMeta extends AppCompatActivity {
 
             PB_Progresso.setProgress(progresso);
 
-            while(iterador < meta.getValorMeta()){
-                iterador += meta.getValorEconomia();
-                previsao += 1;
-            }
+            double x = (int)(meta.getValorMeta() - meta.getValorAlcancado()) / meta.getValorEconomia();
+            previsao = (int) x;
 
             TXT_Previsao.setText(Integer.toString(previsao) + " Meses");
-
-
-
 
         } else {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
@@ -201,7 +195,7 @@ public class ActvVisualizaMeta extends AppCompatActivity {
         dl.setTitle("Quanto Você Está Disposto a Adicionar?");
 
         final EditText editText = new EditText(this);
-        editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
